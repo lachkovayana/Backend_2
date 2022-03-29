@@ -2,6 +2,8 @@ package ru.tsu.hits;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
@@ -50,28 +52,59 @@ public class Application {
         for (Map.Entry<String, String> entry : sortMap.entrySet()) {
             switch (entry.getKey()) {
                 case "type":
-                    sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getType));
+                    if (Objects.equals(entry.getValue(), "asc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getType));
+                    else if (Objects.equals(entry.getValue(), "desc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getType).reversed());
                     break;
                 case "name":
-                    sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getName));
+                    if (Objects.equals(entry.getValue(), "asc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getName));
+                    else if (Objects.equals(entry.getValue(), "desc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getName).reversed());
                     break;
                 case "performer":
-                    sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getPerformer));
+                    if (Objects.equals(entry.getValue(), "asc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getPerformer));
+                    else if (Objects.equals(entry.getValue(), "desc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getPerformer).reversed());
                     break;
                 case "priority":
-                    sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getPriority));
+                    if (Objects.equals(entry.getValue(), "asc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getPriority));
+                    else if (Objects.equals(entry.getValue(), "desc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getPriority).reversed());
                     break;
                 case "date_creation":
-                    sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getDate_creation));
+                    if (Objects.equals(entry.getValue(), "asc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getDate_creation));
+                    else if (Objects.equals(entry.getValue(), "desc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getDate_creation).reversed());
                     break;
                 case "author":
-                    sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getAuthor));
+                    if (Objects.equals(entry.getValue(), "asc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getAuthor));
+                    else if (Objects.equals(entry.getValue(), "desc"))
+                        sortedList = sortedList.sorted(Comparator.comparing(TaskCsv::getAuthor).reversed());
                     break;
             }
         }
-        
+
         sortedList.forEach((elem) -> {
-            System.out.println(elem);
+            try (FileWriter writer = new FileWriter("result.txt", true)) {
+                writer.write(
+                        "Тип задачи: " + elem.getType() + '\n' +
+                                "Название: " + elem.getName() + '\n' +
+                                "Автор: " + elem.getAuthor() + '\n' +
+                                "Исполнитель: " + elem.getPerformer() + '\n' +
+                                "Приоритет: " + elem.getPriority() + '\n' +
+                                "Дата создания: " + elem.getDate_creation() + '\n'
+                );
+                writer.append('\n');
+                writer.flush();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         });
     }
 
