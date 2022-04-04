@@ -26,9 +26,11 @@ public class TaskEntity {
     @Column(name = "edit_date")
     private Date editDate;
 
+    @Column
     @NotEmpty(message = "Title is mandatory")
     private String title;
 
+    @Column
     private String description;
 
     @ManyToOne
@@ -39,6 +41,7 @@ public class TaskEntity {
     @JoinColumn(name = "editor", referencedColumnName = "id")
     private UserEntity editor;
 
+    @Column
     private String priority;
 
     @ManyToOne

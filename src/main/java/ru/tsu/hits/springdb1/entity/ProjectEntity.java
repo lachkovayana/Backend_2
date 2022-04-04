@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -28,10 +28,12 @@ public class ProjectEntity {
     @Column(name = "edit_date")
     private Date editDate;
 
-    @NotEmpty(message = "Name is mandatory")
+    @Column
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    @NotEmpty(message = "Description is mandatory")
+    @Column
+    @NotBlank(message = "Description is mandatory")
     @Size(min = 10)
     private String description;
 }

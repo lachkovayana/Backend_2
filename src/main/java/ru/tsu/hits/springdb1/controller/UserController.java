@@ -6,6 +6,7 @@ import ru.tsu.hits.springdb1.dto.CreateUpdateUserDto;
 import ru.tsu.hits.springdb1.dto.UserDto;
 import ru.tsu.hits.springdb1.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserDto save(@RequestBody CreateUpdateUserDto createUpdateUserDto) {
+    public UserDto save(@Valid @RequestBody CreateUpdateUserDto createUpdateUserDto) {
         return userService.save(createUpdateUserDto);
     }
 
