@@ -2,13 +2,17 @@ package ru.tsu.hits.springdb1.dto.converter;
 
 import ru.tsu.hits.springdb1.dto.CreateUpdateProjectDto;
 import ru.tsu.hits.springdb1.dto.ProjectDto;
+import ru.tsu.hits.springdb1.dto.TaskDto;
 import ru.tsu.hits.springdb1.entity.ProjectEntity;
+import ru.tsu.hits.springdb1.entity.TaskEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ProjectDtoConverter {
 
-    public static ProjectEntity convertDtoToEntity(CreateUpdateProjectDto dto){
+    public static ProjectEntity convertProjectDtoToEntity(CreateUpdateProjectDto dto) {
         ProjectEntity entity = new ProjectEntity();
 
         entity.setUuid(UUID.randomUUID().toString());
@@ -20,7 +24,7 @@ public class ProjectDtoConverter {
         return entity;
     }
 
-    public static ProjectDto convertEntityToDto(ProjectEntity entity){
+    public static ProjectDto convertProjectEntityToDto(ProjectEntity entity, List<TaskEntity> taskEntities) {
         ProjectDto dto = new ProjectDto();
 
         dto.setId(entity.getUuid());
@@ -28,8 +32,9 @@ public class ProjectDtoConverter {
         dto.setEditDate(entity.getEditDate());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
-
+        dto.setTasks(TaskDtoConverter.convertTasksToDto(taskEntities));
         return dto;
     }
+
 
 }

@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.tsu.hits.springdb1.entity.Role;
+
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,4 +19,6 @@ public class UserDto {
     private String email;
     private String password;
     private Role role;
+    private List<TaskDto> createdTasks;
+    private List<TaskDto> editedTasks;
 }

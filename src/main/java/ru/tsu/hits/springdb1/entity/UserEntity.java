@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -15,18 +16,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserEntity {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private String uuid;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="creation_date")
+    @Column(name = "creation_date")
     private Date creationDate;
 
     @Temporal(TemporalType.DATE)
-    @Column(name="edit_date")
+    @Column(name = "edit_date")
     private Date editDate;
 
-    @Column (name="full_name")
+    @Column(name = "full_name")
     private String fullName;
 
     @Column
@@ -38,4 +39,11 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column
     private Role role;
+
+    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<TaskEntity> createdTasks;
+
+    @OneToMany(mappedBy = "editor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<TaskEntity> editedTasks;
+
 }

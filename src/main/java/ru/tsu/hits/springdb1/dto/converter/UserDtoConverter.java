@@ -3,9 +3,11 @@ package ru.tsu.hits.springdb1.dto.converter;
 import ru.tsu.hits.springdb1.CsvClass;
 import ru.tsu.hits.springdb1.dto.CreateUpdateUserDto;
 import ru.tsu.hits.springdb1.dto.UserDto;
+import ru.tsu.hits.springdb1.entity.TaskEntity;
 import ru.tsu.hits.springdb1.entity.UserEntity;
 import ru.tsu.hits.springdb1.passwordMethods;
 
+import java.util.List;
 import java.util.UUID;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -29,7 +31,7 @@ public class UserDtoConverter {
         return entity;
     }
 
-    public static UserDto convertEntityToDto(UserEntity entity) {
+    public static UserDto convertEntityToDto(UserEntity entity, List<TaskEntity> createdTaskEntities, List<TaskEntity> editedTaskEntities) {
         UserDto dto = new UserDto();
 
         dto.setId(entity.getUuid());
@@ -39,20 +41,23 @@ public class UserDtoConverter {
         dto.setEmail(entity.getEmail());
         dto.setPassword(entity.getPassword());
         dto.setRole(entity.getRole());
-
+        //---------
+        dto.setCreatedTasks(TaskDtoConverter.convertTasksToDto(createdTaskEntities));
+        dto.setEditedTasks(TaskDtoConverter.convertTasksToDto(editedTaskEntities));
         return dto;
     }
 
     public static UserEntity convertCsvToEntity(CsvClass elem) {
-        return new UserEntity(
-                UUID.randomUUID().toString(),
-                elem.getCreationDate(),
-                elem.getEditDate(),
-                elem.getFullName(),
-                elem.getEmail(),
-                elem.getPassword(),
-                elem.getRole()
-        );
+        byte[] shaInBytes = passwordMethods.digest(elem.getPassword().getBytes(UTF_8), "SHA-256");
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUuid(UUID.randomUUID().toString());
+        userEntity.setCreationDate(elem.getCreationDate());
+        userEntity.setEditDate(elem.getEditDate());
+        userEntity.setFullName(elem.getFullName());
+        userEntity.setEmail(elem.getEmail());
+        userEntity.setPassword(passwordMethods.bytesToHex(shaInBytes));
+        userEntity.setRole(elem.getRole());
+        return userEntity;
     }
 
 }

@@ -16,11 +16,11 @@ public class ProjectController {
 
     @PostMapping
     public ProjectDto save(@RequestBody CreateUpdateProjectDto createUpdateProjectDto) {
-        return projectService.save(createUpdateProjectDto);
+        return projectService.createProject(createUpdateProjectDto);
     }
 
     @GetMapping("/{id}")
     public ProjectDto getById(@PathVariable UUID id) {
-        return projectService.getById(id.toString());
+        return projectService.getProjectDtoById(id.toString());
     }
 }

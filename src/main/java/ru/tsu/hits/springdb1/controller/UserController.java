@@ -28,6 +28,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable UUID id) {
-        return userService.getById(id.toString());
+        return userService.getUserDtoById(id.toString());
     }
 }

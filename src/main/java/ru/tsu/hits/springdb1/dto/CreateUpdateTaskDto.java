@@ -12,9 +12,9 @@ public class CreateUpdateTaskDto {
     private Date editDate;
     private String title;
     private String description;
-    private UserEntity creator;
-    private UserEntity editor;
+    private String creatorId;
+    private String editorId;
     private String priority;
     private int timeEstimate;
-    private ProjectEntity project;
+    private String projectId;
 }

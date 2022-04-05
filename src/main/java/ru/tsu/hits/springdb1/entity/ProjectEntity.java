@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "projects")
@@ -36,4 +37,7 @@ public class ProjectEntity {
     @NotBlank(message = "Description is mandatory")
     @Size(min = 10)
     private String description;
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TaskEntity> tasks;
 }
