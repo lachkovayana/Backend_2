@@ -8,6 +8,7 @@ import ru.tsu.hits.springdb1.dto.ProjectDto;
 import ru.tsu.hits.springdb1.dto.converter.ProjectDtoConverter;
 import ru.tsu.hits.springdb1.entity.ProjectEntity;
 import ru.tsu.hits.springdb1.entity.TaskEntity;
+import ru.tsu.hits.springdb1.entity.UserEntity;
 import ru.tsu.hits.springdb1.exception.ProjectExceptionNotFound;
 import ru.tsu.hits.springdb1.repository.ProjectRepository;
 import ru.tsu.hits.springdb1.repository.TaskRepository;
@@ -36,9 +37,9 @@ public class ProjectService {
     }
 
     @Transactional(readOnly = true)
-    public ProjectEntity getProjectEntityById(String uuid) {
-        return projectRepository.findById(uuid)
-                .orElseThrow(() -> new ProjectExceptionNotFound("Проект с id " + uuid + " не найден"));
+    public ProjectEntity getProjectEntityById(String id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new ProjectExceptionNotFound("Проект с id " + id + " не найден"));
     }
 
     @Transactional(readOnly = true)

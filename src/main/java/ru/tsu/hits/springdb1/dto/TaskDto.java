@@ -4,6 +4,7 @@ import lombok.Data;
 import ru.tsu.hits.springdb1.entity.ProjectEntity;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class TaskDto {
@@ -17,4 +18,6 @@ public class TaskDto {
     private String priority;
     private int timeEstimate;
     private String project;
+
+    private List<CommentDto> comments;
 }

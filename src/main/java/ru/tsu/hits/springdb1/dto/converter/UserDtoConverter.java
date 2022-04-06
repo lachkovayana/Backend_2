@@ -3,6 +3,7 @@ package ru.tsu.hits.springdb1.dto.converter;
 import ru.tsu.hits.springdb1.CsvClass;
 import ru.tsu.hits.springdb1.dto.CreateUpdateUserDto;
 import ru.tsu.hits.springdb1.dto.UserDto;
+import ru.tsu.hits.springdb1.entity.CommentEntity;
 import ru.tsu.hits.springdb1.entity.TaskEntity;
 import ru.tsu.hits.springdb1.entity.UserEntity;
 import ru.tsu.hits.springdb1.passwordMethods;
@@ -31,7 +32,7 @@ public class UserDtoConverter {
         return entity;
     }
 
-    public static UserDto convertEntityToDto(UserEntity entity, List<TaskEntity> createdTaskEntities, List<TaskEntity> editedTaskEntities) {
+    public static UserDto convertEntityToDto(UserEntity entity, List<TaskEntity> createdTaskEntities, List<TaskEntity> editedTaskEntities, List<CommentEntity> comments) {
         UserDto dto = new UserDto();
 
         dto.setId(entity.getUuid());
@@ -41,9 +42,9 @@ public class UserDtoConverter {
         dto.setEmail(entity.getEmail());
         dto.setPassword(entity.getPassword());
         dto.setRole(entity.getRole());
-        //---------
-        dto.setCreatedTasks(TaskDtoConverter.convertTasksToDto(createdTaskEntities));
-        dto.setEditedTasks(TaskDtoConverter.convertTasksToDto(editedTaskEntities));
+        dto.setCreatedTasks(TaskDtoConverter.convertEntitiesToDtoWithoutComments(createdTaskEntities));
+        dto.setEditedTasks(TaskDtoConverter.convertEntitiesToDtoWithoutComments(editedTaskEntities));
+        dto.setComments(CommentDtoConverter.convertCommentEntitiesToDto(comments));
         return dto;
     }
 

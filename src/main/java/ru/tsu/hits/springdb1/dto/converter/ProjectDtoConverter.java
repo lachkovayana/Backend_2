@@ -32,7 +32,7 @@ public class ProjectDtoConverter {
         dto.setEditDate(entity.getEditDate());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
-        dto.setTasks(TaskDtoConverter.convertTasksToDto(taskEntities));
+        dto.setTasks(TaskDtoConverter.convertEntitiesToDtoWithoutComments(taskEntities));
         return dto;
     }
 

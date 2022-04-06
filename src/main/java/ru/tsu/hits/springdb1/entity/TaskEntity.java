@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -33,21 +34,24 @@ public class TaskEntity {
     @Column
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "creator", referencedColumnName = "id")
-    private UserEntity creator;
-
-    @ManyToOne
-    @JoinColumn(name = "editor", referencedColumnName = "id")
-    private UserEntity editor;
+    @Column(name = "time_estimate")
+    private int timeEstimate;
 
     @Column
     private String priority;
 
     @ManyToOne
-    @JoinColumn(name = "project", referencedColumnName = "id")
+    @JoinColumn(name = "creator_id", referencedColumnName = "id")
+    private UserEntity creator;
+
+    @ManyToOne
+    @JoinColumn(name = "editor_id", referencedColumnName = "id")
+    private UserEntity editor;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private ProjectEntity project;
 
-    @Column(name = "time_estimate")
-    private int timeEstimate;
+    @ManyToMany(mappedBy = "tasks")
+    private List<CommentEntity> comments;
 }

@@ -8,9 +8,11 @@ import ru.tsu.hits.springdb1.CsvClass;
 import ru.tsu.hits.springdb1.dto.CreateUpdateUserDto;
 import ru.tsu.hits.springdb1.dto.UserDto;
 import ru.tsu.hits.springdb1.dto.converter.UserDtoConverter;
+import ru.tsu.hits.springdb1.entity.CommentEntity;
 import ru.tsu.hits.springdb1.entity.TaskEntity;
 import ru.tsu.hits.springdb1.entity.UserEntity;
 import ru.tsu.hits.springdb1.exception.UserExceptionNotFound;
+import ru.tsu.hits.springdb1.repository.CommentRepository;
 import ru.tsu.hits.springdb1.repository.TaskRepository;
 import ru.tsu.hits.springdb1.repository.UserRepository;
 
@@ -25,12 +27,13 @@ import java.util.Objects;
 public class UserService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final CommentRepository commentsRepository;
 
     @Transactional
     public UserDto save(CreateUpdateUserDto createUpdateUserDto) {
         var userEntity = UserDtoConverter.convertDtoToEntity(createUpdateUserDto);
         var savedEntity = userRepository.save(userEntity);
-        return UserDtoConverter.convertEntityToDto(savedEntity, getCreatedTasksByUser(savedEntity), getEditedTasksByUser(savedEntity));
+        return UserDtoConverter.convertEntityToDto(savedEntity, getCreatedTasksByUser(savedEntity), getEditedTasksByUser(savedEntity), getCommentsByAuthor(savedEntity));
     }
 
     @Transactional
@@ -42,7 +45,7 @@ public class UserService {
         users.forEach((elem) -> {
             var entity = UserDtoConverter.convertCsvToEntity(elem);
             var savedEntity = userRepository.save(entity);
-            result.add(UserDtoConverter.convertEntityToDto(savedEntity, getCreatedTasksByUser(savedEntity), getEditedTasksByUser(savedEntity)));
+            result.add(UserDtoConverter.convertEntityToDto(savedEntity, getCreatedTasksByUser(savedEntity), getEditedTasksByUser(savedEntity),getCommentsByAuthor(savedEntity)));
         });
         return result;
     }
@@ -50,7 +53,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserDto getUserDtoById(String id) {
         UserEntity entity = getUserEntityById(id);
-        return UserDtoConverter.convertEntityToDto(entity, getCreatedTasksByUser(entity), getEditedTasksByUser(entity));
+        return UserDtoConverter.convertEntityToDto(entity, getCreatedTasksByUser(entity), getEditedTasksByUser(entity),getCommentsByAuthor(entity));
     }
 
     @Transactional(readOnly = true)
@@ -66,5 +69,10 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<TaskEntity> getEditedTasksByUser(UserEntity userEntity) {
         return taskRepository.findByEditor(userEntity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentEntity> getCommentsByAuthor(UserEntity userEntity) {
+        return commentsRepository.findByAuthor(userEntity);
     }
 }

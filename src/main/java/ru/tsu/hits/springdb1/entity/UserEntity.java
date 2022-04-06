@@ -46,4 +46,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "editor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<TaskEntity> editedTasks;
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<CommentEntity> comments;
+
+
+
 }
