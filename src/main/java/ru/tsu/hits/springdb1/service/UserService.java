@@ -4,7 +4,6 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tsu.hits.springdb1.CsvClass;
 import ru.tsu.hits.springdb1.dto.CreateUpdateUserDto;
 import ru.tsu.hits.springdb1.dto.UserDto;
 import ru.tsu.hits.springdb1.dto.converter.UserDtoConverter;
@@ -38,8 +37,8 @@ public class UserService {
 
     @Transactional
     public List<UserDto> saveFromResource() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("text.csv");
-        var users = new CsvToBeanBuilder<CsvClass>(new InputStreamReader(Objects.requireNonNull(inputStream))).withSeparator(',').withType(CsvClass.class).withSkipLines(1).build().parse();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("users.csv");
+        var users = new CsvToBeanBuilder<CreateUpdateUserDto>(new InputStreamReader(Objects.requireNonNull(inputStream))).withSeparator(',').withType(CreateUpdateUserDto.class).withSkipLines(1).build().parse();
 
         List<UserDto> result = new ArrayList<>();
         users.forEach((elem) -> {

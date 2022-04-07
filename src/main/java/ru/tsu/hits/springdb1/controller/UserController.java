@@ -21,10 +21,6 @@ public class UserController {
         return userService.save(createUpdateUserDto);
     }
 
-    @PostMapping("/resource")
-    public List<UserDto> saveFromResource() {
-        return userService.saveFromResource();
-    }
 
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable UUID id) {

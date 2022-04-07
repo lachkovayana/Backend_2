@@ -1,6 +1,5 @@
 package ru.tsu.hits.springdb1.dto.converter;
 
-import ru.tsu.hits.springdb1.CsvClass;
 import ru.tsu.hits.springdb1.dto.CreateUpdateUserDto;
 import ru.tsu.hits.springdb1.dto.UserDto;
 import ru.tsu.hits.springdb1.entity.CommentEntity;
@@ -48,7 +47,7 @@ public class UserDtoConverter {
         return dto;
     }
 
-    public static UserEntity convertCsvToEntity(CsvClass elem) {
+    public static UserEntity convertCsvToEntity(CreateUpdateUserDto elem) {
         byte[] shaInBytes = passwordMethods.digest(elem.getPassword().getBytes(UTF_8), "SHA-256");
         UserEntity userEntity = new UserEntity();
         userEntity.setUuid(UUID.randomUUID().toString());

@@ -1,9 +1,10 @@
 spring:
-#  flyway:
-#    locations: classpath:migrations
-#    url: jdbc:postgresql://localhost:5432/lab1
-#    user: hits
-#    password: hits
+  flyway:
+    locations: classpath:migrations
+    url: jdbc:postgresql://localhost:5432/lab1
+    user: hits
+    password: hits
+#    enabled: false
 
   datasource:
     url: jdbc:postgresql://localhost:5432/lab1
@@ -12,7 +13,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
 
 server:
   port: 8090
