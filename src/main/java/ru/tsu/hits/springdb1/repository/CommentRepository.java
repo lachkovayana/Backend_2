@@ -8,6 +8,6 @@ import ru.tsu.hits.springdb1.entity.UserEntity;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<CommentEntity, String> {
-    List<CommentEntity> findCommentEntitiesByTasks(TaskEntity taskEntity);
     List<CommentEntity> findByAuthor(UserEntity userEntity);
+    List<CommentEntity> findByTasks(TaskEntity taskEntity);
 }

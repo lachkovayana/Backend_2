@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,5 +15,4 @@ public class CommentDto {
     private Date editDate;
     private String commentText;
     private String author;
-    private List<TaskDto> tasks;
 }

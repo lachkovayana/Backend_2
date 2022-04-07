@@ -48,7 +48,7 @@ public class TaskDtoConverter {
         return dto;
     }
 
-    public static List<TaskDto> convertEntitiesToDtoWithoutComments(List<TaskEntity> taskEntities){
+    public static List<TaskDto> convertEntitiesToDtoWithoutComments(List<TaskEntity> taskEntities) {
         List<TaskDto> tasks = new ArrayList<>();
         taskEntities.forEach(element -> {
             TaskDto taskDto = new TaskDto();
