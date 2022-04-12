@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +23,9 @@ public class CreateUpdateCommentDto {
     @CsvBindByPosition(position = 2)
     private String authorId;
 
-    @NonNull
     @CsvBindByPosition(position = 3)
     private String commentText;
 
-    //-----------------
     @CsvBindByPosition(position = 4)
-    private List<String> tasksId;  // few id of tasks
+    private String tasksId;
 }

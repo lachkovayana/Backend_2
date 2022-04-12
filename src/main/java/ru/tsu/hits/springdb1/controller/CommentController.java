@@ -6,6 +6,7 @@ import ru.tsu.hits.springdb1.dto.CommentDto;
 import ru.tsu.hits.springdb1.dto.CreateUpdateCommentDto;
 import ru.tsu.hits.springdb1.service.CommentService;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -15,7 +16,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public CommentDto save(@RequestBody CreateUpdateCommentDto createUpdateCommentDto) {
+    public CommentDto save(@Valid  @RequestBody CreateUpdateCommentDto createUpdateCommentDto) {
         return commentService.createComment(createUpdateCommentDto);
     }
 

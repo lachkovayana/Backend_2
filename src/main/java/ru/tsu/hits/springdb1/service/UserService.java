@@ -36,17 +36,16 @@ public class UserService {
     }
 
     @Transactional
-    public List<UserDto> saveFromResource() {
+    public void saveFromResource() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("users.csv");
-        var users = new CsvToBeanBuilder<CreateUpdateUserDto>(new InputStreamReader(Objects.requireNonNull(inputStream))).withSeparator(',').withType(CreateUpdateUserDto.class).withSkipLines(1).build().parse();
+        var users = new CsvToBeanBuilder<CreateUpdateUserDto>(new InputStreamReader(Objects.requireNonNull(inputStream)))
+                .withSeparator(',')
+                .withType(CreateUpdateUserDto.class)
+                .withSkipLines(1)
+                .build()
+                .parse();
 
-        List<UserDto> result = new ArrayList<>();
-        users.forEach((elem) -> {
-            var entity = UserDtoConverter.convertCsvToEntity(elem);
-            var savedEntity = userRepository.save(entity);
-            result.add(UserDtoConverter.convertEntityToDto(savedEntity, getCreatedTasksByUser(savedEntity), getEditedTasksByUser(savedEntity),getCommentsByAuthor(savedEntity)));
-        });
-        return result;
+        users.forEach(this::save);
     }
 
     @Transactional(readOnly = true)

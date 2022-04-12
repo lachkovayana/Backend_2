@@ -60,10 +60,7 @@ public class ProjectService {
                 .build()
                 .parse();
 
-        data.forEach((elem) -> {
-            var entity = ProjectDtoConverter.convertProjectDtoToEntity(elem);
-            var savedEntity = projectRepository.save(entity);
-        });
+        data.forEach(this::createProject);
     }
 
 }

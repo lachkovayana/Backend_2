@@ -15,10 +15,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class UserDtoConverter {
 
     public static UserEntity convertDtoToEntity(CreateUpdateUserDto dto) {
-        UserEntity entity = new UserEntity();
-
         byte[] shaInBytes = passwordMethods.digest(dto.getPassword().getBytes(UTF_8), "SHA-256");
-
+        UserEntity entity = new UserEntity();
         entity.setUuid(UUID.randomUUID().toString());
         entity.setCreationDate(dto.getCreationDate());
         entity.setEditDate(dto.getEditDate());

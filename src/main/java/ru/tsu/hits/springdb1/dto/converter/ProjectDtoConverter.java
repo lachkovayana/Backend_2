@@ -33,6 +33,7 @@ public class ProjectDtoConverter {
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
         dto.setTasks(TaskDtoConverter.convertEntitiesToDtoWithoutComments(taskEntities));
+
         return dto;
     }
 

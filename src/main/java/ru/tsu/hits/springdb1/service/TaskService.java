@@ -20,6 +20,7 @@ import ru.tsu.hits.springdb1.repository.TaskRepository;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,7 +35,6 @@ public class TaskService {
 
     @Transactional
     public TaskDto createTask(CreateUpdateTaskDto dto) {
-        // ???
         ProjectEntity project = projectService.getProjectEntityById(dto.getProjectId());
         UserEntity creator = userService.getUserEntityById(dto.getCreatorId());
         UserEntity editor = userService.getUserEntityById(dto.getEditorId());
@@ -54,14 +54,7 @@ public class TaskService {
                 .build()
                 .parse();
 
-        data.forEach((elem) -> {
-            ProjectEntity project = projectService.getProjectEntityById(elem.getProjectId());
-            UserEntity creator = userService.getUserEntityById(elem.getCreatorId());
-            UserEntity editor = userService.getUserEntityById(elem.getEditorId());
-
-            var entity = TaskDtoConverter.convertDtoToEntity(elem, project, creator, editor);
-            var savedEntity = taskRepository.save(entity);
-        });
+        data.forEach(this::createTask);
     }
     @Transactional(readOnly = true)
     public TaskDto getTaskDtoById(String id) {
@@ -76,14 +69,14 @@ public class TaskService {
     }
 
     @Transactional(readOnly = true)
-    public List<TaskEntity> getTaskEntitiesByFewId(List<String> listOfId) {
+    public List<TaskEntity> getTaskEntitiesByFewId(String fewId) {
         List<TaskEntity> result = new ArrayList<>();
-//        String[] idList;
-//        idList = fewId.split(",");
-//        Arrays.stream(idList).forEach(id ->{
-//            result.add(getTaskEntityById(id));
-//        });
-        listOfId.forEach(id -> result.add(getTaskEntityById(id)));
+        String[] idList;
+        idList = fewId.split(";");
+        Arrays.stream(idList).forEach(id ->{
+            result.add(getTaskEntityById(id));
+        });
+//        listOfId.forEach(id -> result.add(getTaskEntityById(id)));
         return result;
     }
 

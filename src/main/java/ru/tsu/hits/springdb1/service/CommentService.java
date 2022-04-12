@@ -50,9 +50,7 @@ public class CommentService {
                 .build()
                 .parse();
 
-        data.forEach(dto -> {
-            var savedEntity = createComment(dto);
-        });
+        data.forEach(this::createComment);
     }
 
     @Transactional(readOnly = true)

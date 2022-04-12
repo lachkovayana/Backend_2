@@ -3,11 +3,7 @@ package ru.tsu.hits.springdb1.dto;
 import com.opencsv.bean.CsvBindByPosition;
 import com.opencsv.bean.CsvDate;
 import lombok.Data;
-import lombok.NonNull;
-import ru.tsu.hits.springdb1.entity.ProjectEntity;
-import ru.tsu.hits.springdb1.entity.UserEntity;
 
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
@@ -18,7 +14,6 @@ public class CreateUpdateTaskDto {
     @CsvDate(value = "yyyy-MM-dd")
     @CsvBindByPosition(position = 1)
     private Date editDate;
-    @NonNull
     @CsvBindByPosition(position = 2)
     private String title;
     @CsvBindByPosition(position = 3)

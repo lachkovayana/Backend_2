@@ -3,9 +3,12 @@ package ru.tsu.hits.springdb1.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +41,7 @@ public class CommentEntity {
             inverseJoinColumns = @JoinColumn(name = "task_id"))
     private List<TaskEntity> tasks;
 
-    @NotBlank(message = "Comment text is mandatory")
+    @Column
+    @NotEmpty
     private String commentText;
 }
