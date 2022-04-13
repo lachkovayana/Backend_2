@@ -20,9 +20,9 @@ public class ResourceController {
     private  final CommentService commentService;
     @PostMapping
     public void saveFromResource() {
-//        userService.saveFromResource();
-//        projectService.saveFromResource();
-//        taskService.saveFromResource();
+        userService.saveFromResource();
+        projectService.saveFromResource();
+        taskService.saveFromResource();
         commentService.saveFromResource();
     }
 

@@ -16,7 +16,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public CommentDto save(@Valid  @RequestBody CreateUpdateCommentDto createUpdateCommentDto) {
+    public CommentDto save( @RequestBody CreateUpdateCommentDto createUpdateCommentDto) {
         return commentService.createComment(createUpdateCommentDto);
     }
 

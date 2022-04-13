@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsu.hits.springdb1.dto.CreateUpdateProjectDto;
 import ru.tsu.hits.springdb1.dto.CreateUpdateTaskDto;
+import ru.tsu.hits.springdb1.dto.SearchByCommentDto;
 import ru.tsu.hits.springdb1.dto.TaskDto;
 import ru.tsu.hits.springdb1.dto.converter.ProjectDtoConverter;
 import ru.tsu.hits.springdb1.dto.converter.TaskDtoConverter;
@@ -80,10 +81,28 @@ public class TaskService {
         return result;
     }
 
+    @Transactional(readOnly = true)
+    public List<TaskDto> getByCommentText(SearchByCommentDto dto) {
+        List<TaskEntity> res = new ArrayList<>();
+        var comments = getCommentsByText(dto.getCommentText());
+        comments.forEach(comment->{
+            res.addAll(getTasksByComments(comment));
+        });
+        return  TaskDtoConverter.convertEntitiesToDtoWithoutComments(res);
+    }
 
     @Transactional(readOnly = true)
     public List<CommentEntity> getCommentsByTask(TaskEntity taskEntity) {
         return commentRepository.findByTasks(taskEntity);
+    }
+    @Transactional(readOnly = true)
+    public List<CommentEntity> getCommentsByText(String text) {
+        return commentRepository.findAllByCommentTextLike('%' + text + '%');
+    }
+
+    @Transactional(readOnly = true)
+    public List<TaskEntity> getTasksByComments(CommentEntity comment) {
+        return taskRepository.findAllByComments(comment);
     }
 
 }

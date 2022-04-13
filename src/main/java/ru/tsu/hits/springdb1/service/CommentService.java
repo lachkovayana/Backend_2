@@ -9,6 +9,7 @@ import ru.tsu.hits.springdb1.dto.CreateUpdateCommentDto;
 import ru.tsu.hits.springdb1.dto.CreateUpdateTaskDto;
 import ru.tsu.hits.springdb1.dto.converter.CommentDtoConverter;
 import ru.tsu.hits.springdb1.dto.converter.TaskDtoConverter;
+import ru.tsu.hits.springdb1.entity.CommentEntity;
 import ru.tsu.hits.springdb1.entity.ProjectEntity;
 import ru.tsu.hits.springdb1.entity.TaskEntity;
 import ru.tsu.hits.springdb1.entity.UserEntity;
@@ -59,5 +60,7 @@ public class CommentService {
                 .orElseThrow(() -> new CommentExceptionNotFound("Комментарий с id " + id + " не найден"));
         return CommentDtoConverter.convertCommentEntityToDto(entity);
     }
+
+
 
 }

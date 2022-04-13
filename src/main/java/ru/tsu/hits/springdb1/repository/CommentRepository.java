@@ -10,4 +10,5 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<CommentEntity, String> {
     List<CommentEntity> findByAuthor(UserEntity userEntity);
     List<CommentEntity> findByTasks(TaskEntity taskEntity);
+    List<CommentEntity> findAllByCommentTextLike(String text);
 }

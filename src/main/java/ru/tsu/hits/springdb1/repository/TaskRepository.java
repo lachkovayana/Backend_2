@@ -16,4 +16,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, String> {
     List<TaskEntity> findByEditor(UserEntity userEntity);
 
     List<TaskEntity> findByComments(CommentEntity commentEntity);
+
+    List<TaskEntity> findAllByComments(CommentEntity commentEntity);
+
 }
