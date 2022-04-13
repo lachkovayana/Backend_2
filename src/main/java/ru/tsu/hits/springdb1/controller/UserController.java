@@ -3,6 +3,7 @@ package ru.tsu.hits.springdb1.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.tsu.hits.springdb1.dto.CreateUpdateUserDto;
+import ru.tsu.hits.springdb1.dto.FetchUserDto;
 import ru.tsu.hits.springdb1.dto.UserDto;
 import ru.tsu.hits.springdb1.service.UserService;
 
@@ -25,5 +26,10 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable UUID id) {
         return userService.getUserDtoById(id.toString());
+    }
+
+    @GetMapping("/fetch")
+    public  List<UserDto> getByAll(@RequestBody FetchUserDto dto){
+        return userService.fetchUsers(dto);
     }
 }

@@ -45,6 +45,20 @@ public class UserDtoConverter {
         return dto;
     }
 
+    public static UserDto convertEntityToDtoWithoutLists(UserEntity entity) {
+        UserDto dto = new UserDto();
+
+        dto.setId(entity.getUuid());
+        dto.setCreationDate(entity.getCreationDate());
+        dto.setEditDate(entity.getEditDate());
+        dto.setFullName(entity.getFullName());
+        dto.setEmail(entity.getEmail());
+        dto.setPassword(entity.getPassword());
+        dto.setRole(entity.getRole());
+
+        return dto;
+    }
+
     public static UserEntity convertCsvToEntity(CreateUpdateUserDto elem) {
         byte[] shaInBytes = passwordMethods.digest(elem.getPassword().getBytes(UTF_8), "SHA-256");
         UserEntity userEntity = new UserEntity();

@@ -28,7 +28,7 @@ public class TaskController {
         return taskService.getTaskDtoById(id.toString());
     }
 
-    @GetMapping("/search-by-comment")
+    @GetMapping("/search/by-comment")
     public List<TaskDto> getByCommentText(@RequestBody SearchByCommentDto dto) {
         return taskService.getByCommentText(dto);
     }
